@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Random Moving Triangle</title>
+<script>
+// Set window.onload to ensure the HTML is fully loaded before executing
+window.onload = function() {
+    // Configurations
+    const speed = 10;
+
+    // Canvas setup
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Triangle setup
+    let x = 200, y = 200; // Initial coordinates
+    const size = 50; // Size of the triangle
+
+    // Draw the triangle
+    function drawTriangle(x, y) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous drawings
+        ctx.beginPath();
+        ctx.moveTo(x, y); // Top vertex
+        ctx.lineTo(x - size/2, y + size); // Bottom left vertex
+        ctx.lineTo(x + size/2, y + size); // Bottom right vertex
+        ctx.closePath(); // End the path
+        ctx.stroke(); // Outline the triangle
+    }
+
+    // Move the triangle
+    function moveTriangle() {
+        x += (Math.random() * 2 - 1) * speed; // Random horizontal direction
+        y += (Math.random() * 2 - 1) * speed; // Random vertical direction
+        // Boundary checking
+        x = Math.max(Math.min(x, canvas.width - size/2), size/2);
+        y = Math.max(Math.min(y, canvas.height - size), size);
+        drawTriangle(x, y); // Redraw the triangle
+    }
+
+    // Initial drawing
+    drawTriangle(x, y);
+
+    // Start moving the triangle
+    setInterval(moveTriangle, 100); // Moves it every 100ms
+}
+</script>
+<style>
+body {
+background: #b3d9ff;
+margin: 0;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+#myCanvas {
+border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+<canvas id='myCanvas' width='500' height='500'></canvas>
+</body>
+</html>
